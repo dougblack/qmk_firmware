@@ -1,5 +1,6 @@
 #include "planck.h"
 #include "action_layer.h"
+#include "action_code.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
@@ -24,6 +25,9 @@ extern keymap_config_t keymap_config;
 #define RAISE M(_RAISE)
 #define LLEFT M(_LLEFT)
 #define LRGHT M(_LRGHT)
+
+#define NXTAPP LGUI(KC_TAB)
+#define PRVAPP LGUI(LSFT(KC_TAB))
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -64,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, KC_TAB,  KC_TAB, _______, _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, KC_TAB,  KC_TAB,  _______, _______, _______, _______, _______}
 },
 
 /* Raise
@@ -134,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_HYPER] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
-  {_______, _______, _______, _______, _______, AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______,  PRVAPP,  NXTAPP, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
