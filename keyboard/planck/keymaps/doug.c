@@ -14,20 +14,16 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 0
 #define _LOWER 3
 #define _RAISE 4
-#define _HYPER 6
-#define _ADJUST 16
+#define _LLEFT 6
+#define _LRGHT 7
+#define _HYPER 16
 
 // Macro name shortcuts
 #define QWERTY M(_QWERTY)
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
-#define HYPER M(_HYPER)
-#define M_BL 5
-#define MUS_OFF M(8)
-#define MUS_ON M(9)
-#define VC_IN M(10)
-#define VC_DE M(11)
-#define EXT_PLV M(13)
+#define LLEFT M(_LLEFT)
+#define LRGHT M(_LRGHT)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -50,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-  {HYPER,   KC_LALT, KC_TAB,  KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_ENT,  KC_DOWN, KC_UP,   KC_RGHT}
+  {LLEFT,   KC_LALT, KC_TAB,  KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_ENT,  KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Lower
@@ -61,14 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |     Tab     |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, KC_TAB,  KC_TAB, _______, _______, _______, _______, _______}
 },
 
 /* Raise
@@ -79,17 +75,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |     Bksp    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______}
 },
 
-/* Hyper
+/* Left layer
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      | Prev | Play | Next |      | Mute |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -97,18 +93,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|      |      |      |      |      |      |      |      |      |      | Vol+ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | GUI  |      |      |      |      |      |      |      |      |
+ * |      |      |      | GUI  |      |    Enter    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_HYPER] = {
+[_LLEFT] = {
   {_______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_MUTE},
   {KC_TAB,  _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, KC_VOLU},
   {KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD},
-  {_______, _______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, KC_LGUI, KC_ENT,  KC_ENT,  _______, _______, _______, _______, _______, _______}
 },
     
+/* Right layer
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_LRGHT] = {
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
 
-/* Adjust (Lower + Raise)
+/* Hyper (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -119,19 +132,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = {
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
+[_HYPER] = {
+  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
   {_______, _______, _______, _______, _______, AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______, _______},
-  {_______, VC_DE,   VC_IN,   MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
+const uint16_t PROGMEM fn_actions[] = { };
 
 #ifdef AUDIO_ENABLE
 float goodbye[][2] = SONG(GOODBYE_SOUND);
@@ -153,40 +164,35 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            update_tri_layer(_LOWER, _RAISE, _HYPER);
           } else {
             layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            update_tri_layer(_LOWER, _RAISE, _HYPER);
           }
           break;
         case _RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            update_tri_layer(_LOWER, _RAISE, _HYPER);
           } else {
             layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            update_tri_layer(_LOWER, _RAISE, _HYPER);
           }
           break;
-        case _HYPER:
+        case _LLEFT:
           if (record->event.pressed) {
-            layer_on(_HYPER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            layer_on(_LLEFT);
           } else {
-            layer_off(_HYPER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            layer_off(_LLEFT);
           }
           break;
-        case M_BL:
+        case _LRGHT:
           if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
+            layer_on(_LRGHT);
           } else {
-            unregister_code(KC_RSFT);
+            layer_off(_LRGHT);
           }
-        break;
+          break;
       }
     return MACRO_NONE;
 };
