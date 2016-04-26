@@ -8,26 +8,20 @@
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
+#define _MAIN 0
 #define _LOWER 3
 #define _RAISE 4
 #define _LLEFT 6
 #define _LRGHT 7
 #define _HYPER 16
 
-// Macro name shortcuts
-#define QWERTY M(_QWERTY)
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define LLEFT M(_LLEFT)
 #define LRGHT M(_LRGHT)
 
-#define NXTAPP LGUI(KC_TAB)
-#define PRVAPP LGUI(LSFT(KC_TAB))
+#define NXTAPP KC_TAB
+#define PRVAPP LSFT(KC_TAB)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -46,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Brite| Alt  | Tab  | GUI  |Lower |    Space    |Raise | Enter| Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'    
  */
-[_QWERTY] = {
+[_MAIN] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-  {LLEFT,   KC_LALT, KC_TAB,  KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_ENT,  KC_DOWN, KC_UP,   KC_RGHT}
+  {LLEFT,   KC_LALT, KC_TAB,  KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_ENT,  KC_DOWN, KC_UP,   LRGHT}
 },
 
 /* Lower
@@ -119,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LRGHT] = {
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -127,18 +121,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Hyper (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |      |      |
+ * |      |      |      |      |      | S-TAB| TAB  |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |Mus on|Musoff|      |      |      |      |      |      |      |
+ * | CMD  |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_HYPER] = {
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
-  {_______, _______, _______, _______, _______,  PRVAPP,  NXTAPP, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -160,11 +154,6 @@ void persistant_default_layer_set(uint16_t default_layer) {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-        case _QWERTY:
-          if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_QWERTY);
-          }
-          break;
         case _LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
