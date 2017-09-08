@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Alt  | Tab  | GUI  |Lower |    Space    |Raise | Enter| Down |  Up  |Right |
+ * | Left | Alt  | Tab  | Cmd  |Lower |    Space    |Raise | Enter| Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_MAIN] = {
